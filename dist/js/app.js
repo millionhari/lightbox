@@ -42,7 +42,7 @@ var Slider = function () {
 
   var fetchFromFlickr = function fetchFromFlickr() {
     var photoId = 29158094390;
-    Promise.resolve(get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&tags=patterns')).then(function (res) {
+    return Promise.resolve(get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&tags=patterns')).then(function (res) {
       var list = res.photos.photo.map(function (image) {
         return 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + apiKey + '&format=json&nojsoncallback=1&photo_id=' + image.id;
       });
@@ -56,13 +56,14 @@ var Slider = function () {
         });
       });
       return Promise.all(newList);
-    }).then(function (x) {
-      log(x);
+    }).then(function (urls) {
+      // Do whatever you urls here
+      console.log(urls);
     });
   };
-  var init = function init(x) {
+
+  var init = function init() {
     fetchFromFlickr();
-    log(x);
   };
 
   return {
