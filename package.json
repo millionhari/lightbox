@@ -1,0 +1,33 @@
+{
+  "name": "slack-lightbox",
+  "version": "1.0.0",
+  "description": "Coding challenge for Slack's Front End Developer Role",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/millionhari/slack-lightbox.git"
+  },
+  "author": "Michael Hari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/millionhari/slack-lightbox/issues"
+  },
+  "homepage": "https://github.com/millionhari/slack-lightbox#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.3.2"
+  },
+  "dependencies": {
+    "superagent": "^2.2.0"
+  }
+}

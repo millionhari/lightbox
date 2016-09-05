@@ -1,0 +1,13 @@
+# ESLint config
+# Currently extends Airbnb's JavaScript styleguide ES6
+# https://github.com/airbnb/javascript
+
+{
+  "extends": "airbnb",
+  "rules": {
+    "comma-dangle": 0,
+    "no-console": 0,
+    "react/prefer-stateless-function": 0,
+    "global-require": 0
+  }
+}
