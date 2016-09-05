@@ -48,14 +48,14 @@ var Slider = function () {
       });
       return list;
     }).then(function (list) {
-      list.map(function (url) {
+      var newList = list.map(function (url) {
         return Promise.resolve(get(url)).then(function (res) {
           var images = res;
           var imageMap = createImageObjects(images, photoId);
           return imageMap;
         });
       });
-      return list;
+      return Promise.all(newList);
     }).then(function (x) {
       log(x);
     });

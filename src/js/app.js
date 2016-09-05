@@ -45,7 +45,7 @@ const Slider = (() => {
       return list;
     })
     .then((list) => {
-      list.map((url) =>
+      const newList = list.map((url) =>
         Promise.resolve(get(url))
         .then((res) => {
           const images = res;
@@ -53,7 +53,7 @@ const Slider = (() => {
           return imageMap;
         })
       );
-      return list;
+      return Promise.all(newList);
     })
     .then((x) => {
       log(x);
