@@ -1,0 +1,8 @@
+.app .lightbox {
+  position: absolute; }
+
+.app .hide {
+  display: none; }
+
+.app .show {
+  display: block; }

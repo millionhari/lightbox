@@ -1,3 +1,11 @@
 .app {
-  
+  .lightbox {
+    position: absolute;
+  }
+  .hide {
+    display: none;
+  }
+  .show {
+    display: block;
+  }
 }
