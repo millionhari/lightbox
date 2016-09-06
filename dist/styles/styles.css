@@ -1,5 +1,5 @@
 .app .lightbox {
-  position: absolute; }
+  position: fixed; }
 
 .app .hide {
   display: none; }

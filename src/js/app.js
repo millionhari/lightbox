@@ -37,36 +37,40 @@ const Slider = (() => {
     return;
   };
 
-  const renderLightbox = (node, imageSizes, prev, next) => {
+  const filterButtons = (arr, index, previousButton, nextButton) => {
+    if (index === 0) {
+      previousButton.classList.add('hide');
+    } else if (index === arr.length - 1) {
+      nextButton.classList.add('hide');
+    } else {
+      previousButton.classList.remove('hide');
+      nextButton.classList.remove('hide');
+    }
+  };
+
+  const renderLightbox = (node, index, arr) => {
     node.onclick = () => {
+      let position = index;
       // Close Button
       lightboxCloseButton.onclick = () => {
         lightbox.classList.add('hide');
       };
       // Previous and Next Button
-      // TODO: MOVE BUTTONS TO PROMISE
-      if (typeof prev === 'undefined') {
-        lightboxPrevButton.classList.add('hide');
-      } else {
-        lightboxPrevButton.classList.remove('hide');
-      }
-      if (typeof next === 'undefined') {
-        lightboxNextButton.classList.add('hide');
-      } else {
-        lightboxNextButton.classList.remove('hide');
-      }
-
       lightboxPrevButton.onclick = () => {
-        lightboxImage.src = prev.large;
-      }
+        position--;
+        filterButtons(arr, position, lightboxPrevButton, lightboxNextButton);
+        lightboxImage.src = arr[position].large;
+      };
       lightboxNextButton.onclick = () => {
-        lightboxImage.src = next.large;
-      }
-      console.log('prev', prev);
-      console.log('next', next);
-      lightboxImage.src = imageSizes.large;
+        position++;
+        filterButtons(arr, position, lightboxPrevButton, lightboxNextButton);
+        lightboxImage.src = arr[position].large;
+      };
+      filterButtons(arr, position, lightboxPrevButton, lightboxNextButton);
+      lightboxImage.src = arr[index].large;
       lightbox.classList.remove('hide');
     };
+    return node;
   };
 
   const renderThumbnails = (imageSizes) => {
@@ -98,11 +102,12 @@ const Slider = (() => {
       const imageContainer = document.createElement('div');
       imageContainer.classList.add('images');
       // Work with urls here
+      urls = urls.filter((x) => typeof x !== 'undefined')
       urls.forEach((imageSizes, index, arr) => {
         if (typeof imageSizes !== 'undefined') {
-          const img = renderThumbnails(imageSizes);
-          renderLightbox(img, imageSizes, arr[index - 1], arr[index + 1]);
-          imageContainer.appendChild(img);
+          const thumbnails = renderThumbnails(imageSizes);
+          const thumbnailsWithLightBox = renderLightbox(thumbnails, index, arr);
+          imageContainer.appendChild(thumbnailsWithLightBox);
         }
       });
       app.appendChild(imageContainer);
