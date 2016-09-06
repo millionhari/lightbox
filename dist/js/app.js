@@ -5,11 +5,16 @@ var Slider = function () {
   var app = document.body.querySelector('.app');
 
   // DOM Nodes
+  var imageContainer = document.createElement('div');
+  imageContainer.classList.add('image__container');
   var lightbox = document.body.querySelector('.lightbox');
   var lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
   var lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
   var lightboxNextButton = document.body.querySelector('.lightbox__button-next');
   var lightboxImage = document.body.querySelector('.lightbox__image');
+  var searchInput = document.body.querySelector('.search__input');
+  var searchSubmitButton = document.body.querySelector('.search__button-submit');
+  var input = '';
 
   var get = function get(url) {
     return new Promise(function (resolve, reject) {
@@ -27,6 +32,7 @@ var Slider = function () {
       req.send();
     });
   };
+
   // format data into sub-objects
   var createImageObjects = function createImageObjects(images) {
     if (images.sizes.size.length > 8) {
@@ -86,9 +92,8 @@ var Slider = function () {
     return img;
   };
 
-  // TODO - EXTRA CREDIT: build out custom search params with a default of "patterns"
-  var fetchFromFlickr = function fetchFromFlickr() {
-    return Promise.resolve(get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=patterns&sort=relevance')).then(function (res) {
+  var fetchFromFlickr = function fetchFromFlickr(query) {
+    return Promise.resolve(get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + query + '&sort=relevance')).then(function (res) {
       var list = res.photos.photo.map(function (image) {
         return 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + apiKey + '&format=json&nojsoncallback=1&photo_id=' + image.id;
       });
@@ -103,8 +108,6 @@ var Slider = function () {
       });
       return Promise.all(newList);
     }).then(function (urls) {
-      var imageContainer = document.createElement('div');
-      imageContainer.classList.add('images');
       // Work with urls here
       urls = urls.filter(function (x) {
         return typeof x !== 'undefined';
@@ -120,8 +123,24 @@ var Slider = function () {
     });
   };
 
+  var clearImages = function clearImages() {
+    while (imageContainer.hasChildNodes()) {
+      imageContainer.removeChild(imageContainer.lastChild);
+    }
+  };
+
+  var initSearch = function initSearch() {
+    searchSubmitButton.onclick = function () {
+      input = searchInput.value;
+      searchInput.value = '';
+      clearImages();
+      fetchFromFlickr(input);
+    };
+  };
+
   var init = function init() {
-    fetchFromFlickr();
+    initSearch();
+    fetchFromFlickr('patterns');
   };
 
   return {

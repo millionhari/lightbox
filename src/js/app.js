@@ -3,11 +3,16 @@ const Slider = (() => {
   const app = document.body.querySelector('.app');
 
   // DOM Nodes
+  const imageContainer = document.createElement('div');
+  imageContainer.classList.add('image__container');
   const lightbox = document.body.querySelector('.lightbox');
   const lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
   const lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
   const lightboxNextButton = document.body.querySelector('.lightbox__button-next');
   const lightboxImage = document.body.querySelector('.lightbox__image');
+  const searchInput = document.body.querySelector('.search__input');
+  const searchSubmitButton = document.body.querySelector('.search__button-submit');
+  let input = '';
 
   const get = (url) => new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
@@ -21,6 +26,7 @@ const Slider = (() => {
     req.onerror = (e) => reject(Error(`Network Error: ${e}`));
     req.send();
   });
+
   // format data into sub-objects
   const createImageObjects = (images) => {
     if (images.sizes.size.length > 8) {
@@ -80,8 +86,7 @@ const Slider = (() => {
     return img;
   };
 
-  // TODO - EXTRA CREDIT: build out custom search params with a default of "patterns"
-  const fetchFromFlickr = () => Promise.resolve(get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=patterns&sort=relevance`))
+  const fetchFromFlickr = (query) => Promise.resolve(get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&sort=relevance`))
     .then((res) => {
       const list = res.photos.photo.map((image) =>
        `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&format=json&nojsoncallback=1&photo_id=${image.id}`);
@@ -99,10 +104,8 @@ const Slider = (() => {
       return Promise.all(newList);
     })
     .then((urls) => {
-      const imageContainer = document.createElement('div');
-      imageContainer.classList.add('images');
       // Work with urls here
-      urls = urls.filter((x) => typeof x !== 'undefined')
+      urls = urls.filter((x) => typeof x !== 'undefined');
       urls.forEach((imageSizes, index, arr) => {
         if (typeof imageSizes !== 'undefined') {
           const thumbnails = renderThumbnails(imageSizes);
@@ -113,8 +116,24 @@ const Slider = (() => {
       app.appendChild(imageContainer);
     });
 
+  const clearImages = () => {
+    while (imageContainer.hasChildNodes()) {
+      imageContainer.removeChild(imageContainer.lastChild);
+    }
+  };
+
+  const initSearch = () => {
+    searchSubmitButton.onclick = () => {
+      input = searchInput.value;
+      searchInput.value = '';
+      clearImages();
+      fetchFromFlickr(input);
+    };
+  };
+
   const init = () => {
-    fetchFromFlickr();
+    initSearch();
+    fetchFromFlickr('patterns');
   };
 
   return {
