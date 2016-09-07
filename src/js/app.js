@@ -4,7 +4,6 @@ const Slider = (() => {
 
   // DOM Nodes
   const imageContainer = document.createElement('div');
-  imageContainer.classList.add('image__container');
   const lightbox = document.body.querySelector('.lightbox');
   const lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
   const lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
@@ -13,6 +12,7 @@ const Slider = (() => {
   const searchInput = document.body.querySelector('.search__input');
   const searchSubmitButton = document.body.querySelector('.search__button-submit');
   let input = '';
+  imageContainer.classList.add('image__container');
 
   const get = (url) => new Promise((resolve, reject) => {
     const req = new XMLHttpRequest();
@@ -80,10 +80,15 @@ const Slider = (() => {
   };
 
   const renderThumbnails = (imageSizes) => {
-    const img = document.createElement('img');
-    img.src = imageSizes.small;
-    img.classList.add('thumbnailImage');
-    return img;
+    // const img = document.createElement('img');
+    // img.src = imageSizes.small;
+    // img.style.width = 'auto';
+    // img.style.height = '200px';
+    // img.classList.add('thumbnail__image');
+    const thumbnail = document.createElement('div');
+    thumbnail.style.backgroundImage = `url('${imageSizes.small}')`;
+    thumbnail.classList.add('image__thumbnail--container');
+    return thumbnail;
   };
 
   const fetchFromFlickr = (query) => Promise.resolve(get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&sort=relevance`))

@@ -6,7 +6,6 @@ var Slider = function () {
 
   // DOM Nodes
   var imageContainer = document.createElement('div');
-  imageContainer.classList.add('image__container');
   var lightbox = document.body.querySelector('.lightbox');
   var lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
   var lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
@@ -15,6 +14,7 @@ var Slider = function () {
   var searchInput = document.body.querySelector('.search__input');
   var searchSubmitButton = document.body.querySelector('.search__button-submit');
   var input = '';
+  imageContainer.classList.add('image__container');
 
   var get = function get(url) {
     return new Promise(function (resolve, reject) {
@@ -86,10 +86,15 @@ var Slider = function () {
   };
 
   var renderThumbnails = function renderThumbnails(imageSizes) {
-    var img = document.createElement('img');
-    img.src = imageSizes.small;
-    img.classList.add('thumbnailImage');
-    return img;
+    // const img = document.createElement('img');
+    // img.src = imageSizes.small;
+    // img.style.width = 'auto';
+    // img.style.height = '200px';
+    // img.classList.add('thumbnail__image');
+    var thumbnail = document.createElement('div');
+    thumbnail.style.backgroundImage = 'url(\'' + imageSizes.small + '\')';
+    thumbnail.classList.add('image__thumbnail--container');
+    return thumbnail;
   };
 
   var fetchFromFlickr = function fetchFromFlickr(query) {

@@ -4,12 +4,16 @@ const gulp = require('gulp');
 const sass = require('gulp-sass');
 const notify = require('gulp-notify');
 const babel = require('gulp-babel');
+const minifyCSS = require('gulp-minify-css');
+const concatCSS = require('gulp-concat-css');
 
 gulp.task('sass', () => {
   gulp.src('./src/scss/*.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(concatCSS('./styles/styles.css'))
+    .pipe(minifyCSS())
     .pipe(notify('css built'))
-    .pipe(gulp.dest('./dist/styles'));
+    .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('sass:watch', () => {
