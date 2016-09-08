@@ -1,12 +1,70 @@
 .app {
   font-family: 'Lato', sans-serif;
+  $search-section-background: #4D394B;
+  $button-color: #56B68B;
   $thumbnail-size: 250px;
 
+  .logo {
+    background: url(./img/header_logo_sprite.png) left top no-repeat;
+    background-size: 106px 60px;
+    height: 30px;
+    width: 167px;
+    float: left;
+    top: 11px;
+    position: relative;
+    left: 30px;
+  }
   .search__section {
     width: 100%;
     margin: 0 auto;
-    text-align: center;
-    height: 50px;
+    text-align: left;
+    padding: 25px 0;
+    background-color: $search-section-background;
+  }
+  .search__input {
+    margin-right: 7px;
+    margin-bottom: 0;
+    font-size: 1.249rem;
+    padding: .743rem;
+    width: 240px;
+    border: 1px solid #C5C5C5;
+    border-radius: .25rem;
+    outline: 0;
+    color: #555459;
+    max-width: 100%;
+    transition: width .3s ease-in-out, box-shadow .3s ease-out, border-color .3s ease-out;
+    box-shadow: none;
+    height: auto;
+    &:focus {
+      width: 400px;
+      border-color: rgba(0,0,0,0.3);
+      box-shadow: 0 0 10px 5px rgba(0,0,0,.4);
+    }
+  }
+  .search__button--submit {
+    margin: 0;
+    line-height: 3rem;
+    padding: 0;
+    font-size: 1.126rem;
+    letter-spacing: .5px;
+    cursor: pointer;
+    width: 145px;
+    display: inline-block;
+    font-weight: 700;
+    border: 1px solid $button-color;
+    border-radius: 4px;
+    background-color: $button-color;
+    color: white;
+    visibility: top;
+    &:hover {
+      background-color: rgba(44,210,135,.9);
+    }
+    &:focus {
+      outline: 0;
+    }
+    &:active {
+      background-color: rgba(44,210,135,1);
+    }
   }
   .lightbox {
     position: fixed;
@@ -47,7 +105,7 @@
     font-size: 3em;
     position: absolute;
     top: 5px;
-    right: 25px;
+    right: 15px;
   }
   .lightbox__button--prev, .lightbox__button--next {
     font-size: 4em;

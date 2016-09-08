@@ -128,9 +128,17 @@ const Slider = (() => {
   };
 
   const initSearch = () => {
+    if (!imageContainer.hasChildNodes()) {
+      console.log()
+    }
+    searchInput.addEventListener('keypress', (key) => {
+      if (key.keyCode === 13) {
+        clearImages();
+        fetchFromFlickr(key.target.value);
+      }
+    });
     searchSubmitButton.onclick = () => {
       input = searchInput.value;
-      searchInput.value = '';
       clearImages();
       fetchFromFlickr(input);
     };

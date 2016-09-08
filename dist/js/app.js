@@ -135,9 +135,17 @@ var Slider = function () {
   };
 
   var initSearch = function initSearch() {
+    if (!imageContainer.hasChildNodes()) {
+      console.log();
+    }
+    searchInput.addEventListener('keypress', function (key) {
+      if (key.keyCode === 13) {
+        clearImages();
+        fetchFromFlickr(key.target.value);
+      }
+    });
     searchSubmitButton.onclick = function () {
       input = searchInput.value;
-      searchInput.value = '';
       clearImages();
       fetchFromFlickr(input);
     };
