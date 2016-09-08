@@ -7,12 +7,12 @@ var Slider = function () {
   // DOM Nodes
   var imageContainer = document.createElement('div');
   var lightbox = document.body.querySelector('.lightbox');
-  var lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
-  var lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
-  var lightboxNextButton = document.body.querySelector('.lightbox__button-next');
+  var lightboxCloseButton = document.body.querySelector('.lightbox__button--close');
+  var lightboxPrevButton = document.body.querySelector('.lightbox__button--prev');
+  var lightboxNextButton = document.body.querySelector('.lightbox__button--next');
   var lightboxImage = document.body.querySelector('.lightbox__image');
   var searchInput = document.body.querySelector('.search__input');
-  var searchSubmitButton = document.body.querySelector('.search__button-submit');
+  var searchSubmitButton = document.body.querySelector('.search__button--submit');
   var input = '';
   imageContainer.classList.add('image__container');
 
@@ -38,7 +38,7 @@ var Slider = function () {
     if (images.sizes.size.length > 8) {
       var small = images.sizes.size[4].source;
       var medium = images.sizes.size[5].source;
-      var large = images.sizes.size[8].source;
+      var large = images.sizes.size[6].source;
       var smallMediumLarge = {
         small: small,
         medium: medium,

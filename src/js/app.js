@@ -5,12 +5,12 @@ const Slider = (() => {
   // DOM Nodes
   const imageContainer = document.createElement('div');
   const lightbox = document.body.querySelector('.lightbox');
-  const lightboxCloseButton = document.body.querySelector('.lightbox__button-close');
-  const lightboxPrevButton = document.body.querySelector('.lightbox__button-prev');
-  const lightboxNextButton = document.body.querySelector('.lightbox__button-next');
+  const lightboxCloseButton = document.body.querySelector('.lightbox__button--close');
+  const lightboxPrevButton = document.body.querySelector('.lightbox__button--prev');
+  const lightboxNextButton = document.body.querySelector('.lightbox__button--next');
   const lightboxImage = document.body.querySelector('.lightbox__image');
   const searchInput = document.body.querySelector('.search__input');
-  const searchSubmitButton = document.body.querySelector('.search__button-submit');
+  const searchSubmitButton = document.body.querySelector('.search__button--submit');
   let input = '';
   imageContainer.classList.add('image__container');
 
@@ -32,7 +32,7 @@ const Slider = (() => {
     if (images.sizes.size.length > 8) {
       const small = images.sizes.size[4].source;
       const medium = images.sizes.size[5].source;
-      const large = images.sizes.size[8].source;
+      const large = images.sizes.size[6].source;
       const smallMediumLarge = {
         small,
         medium,

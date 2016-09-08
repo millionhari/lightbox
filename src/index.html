@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="initial-scale=.5, maximum-scale=.5">
   <title>Millionhari</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link href="./dist/styles/styles.css" rel="stylesheet">
   <!-- c68800a17a432a39511ddfe44c78a500 : 7ef721181c723497 -->
 </head>
@@ -11,13 +13,19 @@
   <div class="app">
     <div class="search__section">
       <input class="search__input" type="text" placeholder="Search">
-      <button class="search__button-submit">Flickr Search</button>
+      <button class="search__button--submit">Flickr Search</button>
     </div>
+    <!-- absolute center image wrapper with image and buttons inside -->
     <div class="lightbox hide">
-      <div class="lightbox__button-close">x</div>
-      <div class="lightbox__button-prev">left</div>
-      <div class="lightbox__button-next">right</div>
-      <img class="lightbox__image">
+      <div class="lightbox__button lightbox__button--close"><i class="fa fa-times-circle" aria-hidden="true"></i></div>
+      <div class="lightbox__wrapper">
+        <img class="lightbox__image">
+        <div class="lightbox__button--wrapper">
+          <div class="lightbox__button lightbox__button--prev"><i class="fa fa-angle-left"></i></div>
+          <div class="lightbox__button lightbox__button--next"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+
     </div>
   </div>
   <script type="text/javascript" src="./dist/js/app.js"></script>
