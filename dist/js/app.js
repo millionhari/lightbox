@@ -14,6 +14,7 @@ var Slider = function () {
   var lightboxBackground = document.body.querySelector('.lightbox__background');
   var searchInput = document.body.querySelector('.search__input');
   var searchSubmitButton = document.body.querySelector('.search__button--submit');
+  var spinner = document.body.querySelector('.spinner');
   var input = '';
   imageContainer.classList.add('image__container');
 
@@ -63,7 +64,7 @@ var Slider = function () {
 
   var hideLightbox = function hideLightbox() {
     lightbox.classList.add('hide');
-    window.removeEventListener('keypress', keyControls);
+    window.removeEventListener('keydown', keyControls);
   };
 
   var keyControls = function keyControls(key) {
@@ -80,7 +81,7 @@ var Slider = function () {
     node.onclick = function () {
       var position = index;
       // Close Lightbox
-      window.addEventListener('keypress', keyControls);
+      window.addEventListener('keydown', keyControls);
       lightboxCloseButton.onclick = function () {
         hideLightbox();
       };
@@ -113,6 +114,7 @@ var Slider = function () {
   };
 
   var fetchFromFlickr = function fetchFromFlickr(query) {
+    spinner.classList.remove('hide');
     return Promise.resolve(get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + apiKey + '&format=json&nojsoncallback=1&text=' + query + '&sort=relevance')).then(function (res) {
       var list = res.photos.photo.map(function (image) {
         return 'https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=' + apiKey + '&format=json&nojsoncallback=1&photo_id=' + image.id;
@@ -132,6 +134,7 @@ var Slider = function () {
       urls = urls.filter(function (x) {
         return typeof x !== 'undefined';
       });
+      console.log(urls);
       urls.forEach(function (imageSizes, index, arr) {
         if (typeof imageSizes !== 'undefined') {
           var thumbnails = renderThumbnails(imageSizes);
@@ -139,6 +142,7 @@ var Slider = function () {
           imageContainer.appendChild(thumbnailsWithLightBox);
         }
       });
+      spinner.classList.add('hide');
       app.appendChild(imageContainer);
     });
   };
@@ -154,7 +158,7 @@ var Slider = function () {
     if (!imageContainer.hasChildNodes()) {
       console.log('spinner');
     }
-    searchInput.addEventListener('keypress', function (key) {
+    searchInput.addEventListener('keydown', function (key) {
       if (key.keyCode === 13) {
         clearImages();
         fetchFromFlickr(key.target.value);

@@ -2,7 +2,7 @@
   font-family: 'Lato', sans-serif;
   $search-section-background: #4D394B;
   $button-color: #56B68B;
-  $thumbnail-size: 250px;
+  $thumbnail-size: 225px;
 
   @mixin flexbox(){
     display: -webkit-box;
@@ -46,11 +46,11 @@
     background: url(./img/header_logo_sprite.png) left top no-repeat;
     background-size: 106px 60px;
     height: 30px;
-    width: 167px;
+    width: 217px;
     float: left;
     top: 11px;
     position: relative;
-    left: 30px;
+    left: 50px;
   }
   .search__section {
     width: 100%;
@@ -74,7 +74,7 @@
     box-shadow: none;
     height: auto;
     &:focus {
-      width: 400px;
+      width: 455px;
       border-color: rgba(0,0,0,0.3);
       box-shadow: 0 0 10px 5px rgba(0,0,0,.4);
     }
@@ -104,6 +104,18 @@
       background-color: rgba(44,210,135,1);
     }
   }
+
+  .spinner {
+    max-width: 50px;
+    position: absolute;
+    text-align: center;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 25vh;
+    display: block;
+  }
+
   .lightbox {
     position: fixed;
     top: 0;

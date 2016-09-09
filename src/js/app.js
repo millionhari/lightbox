@@ -12,6 +12,7 @@ const Slider = (() => {
   const lightboxBackground = document.body.querySelector('.lightbox__background');
   const searchInput = document.body.querySelector('.search__input');
   const searchSubmitButton = document.body.querySelector('.search__button--submit');
+  const spinner = document.body.querySelector('.spinner');
   let input = '';
   imageContainer.classList.add('image__container');
 
@@ -57,7 +58,7 @@ const Slider = (() => {
 
   const hideLightbox = () => {
     lightbox.classList.add('hide');
-    window.removeEventListener('keypress', keyControls);
+    window.removeEventListener('keydown', keyControls);
   };
 
   const keyControls = (key) => {
@@ -74,7 +75,7 @@ const Slider = (() => {
     node.onclick = () => {
       let position = index;
       // Close Lightbox
-      window.addEventListener('keypress', keyControls);
+      window.addEventListener('keydown', keyControls);
       lightboxCloseButton.onclick = () => {
         hideLightbox();
       };
@@ -106,7 +107,9 @@ const Slider = (() => {
     return thumbnail;
   };
 
-  const fetchFromFlickr = (query) => Promise.resolve(get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&sort=relevance`))
+  const fetchFromFlickr = (query) => {
+    spinner.classList.remove('hide');
+    return Promise.resolve(get(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&format=json&nojsoncallback=1&text=${query}&sort=relevance`))
     .then((res) => {
       const list = res.photos.photo.map((image) =>
        `https://api.flickr.com/services/rest/?method=flickr.photos.getSizes&api_key=${apiKey}&format=json&nojsoncallback=1&photo_id=${image.id}`);
@@ -126,6 +129,7 @@ const Slider = (() => {
     .then((urls) => {
       // Work with urls here
       urls = urls.filter((x) => typeof x !== 'undefined');
+      console.log(urls);
       urls.forEach((imageSizes, index, arr) => {
         if (typeof imageSizes !== 'undefined') {
           const thumbnails = renderThumbnails(imageSizes);
@@ -133,8 +137,10 @@ const Slider = (() => {
           imageContainer.appendChild(thumbnailsWithLightBox);
         }
       });
+      spinner.classList.add('hide');
       app.appendChild(imageContainer);
     });
+  }
 
   const clearImages = () => {
     while (imageContainer.hasChildNodes()) {
@@ -147,7 +153,7 @@ const Slider = (() => {
     if (!imageContainer.hasChildNodes()) {
       console.log('spinner');
     }
-    searchInput.addEventListener('keypress', (key) => {
+    searchInput.addEventListener('keydown', (key) => {
       if (key.keyCode === 13) {
         clearImages();
         fetchFromFlickr(key.target.value);
