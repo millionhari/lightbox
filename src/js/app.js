@@ -9,6 +9,7 @@ const Slider = (() => {
   const lightboxPrevButton = document.body.querySelector('.lightbox__button--prev');
   const lightboxNextButton = document.body.querySelector('.lightbox__button--next');
   const lightboxImage = document.body.querySelector('.lightbox__image');
+  const lightboxBackground = document.body.querySelector('.lightbox__background');
   const searchInput = document.body.querySelector('.search__input');
   const searchSubmitButton = document.body.querySelector('.search__button--submit');
   let input = '';
@@ -57,8 +58,11 @@ const Slider = (() => {
   const renderLightbox = (node, index, arr) => {
     node.onclick = () => {
       let position = index;
-      // Close Button
+      // Close Lightbox
       lightboxCloseButton.onclick = () => {
+        lightbox.classList.add('hide');
+      };
+      lightboxBackground.onclick = () => {
         lightbox.classList.add('hide');
       };
       // Previous and Next Button
@@ -145,6 +149,13 @@ const Slider = (() => {
   };
 
   const init = () => {
+    window.addEventListener('keypress', (key) => {
+      // if (key.keyCode === 27) {
+      //   alert('listen');
+      // }
+      key.preventDefault();
+      console.log(key);
+    });
     initSearch();
     fetchFromFlickr('patterns');
   };

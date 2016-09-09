@@ -11,6 +11,7 @@ var Slider = function () {
   var lightboxPrevButton = document.body.querySelector('.lightbox__button--prev');
   var lightboxNextButton = document.body.querySelector('.lightbox__button--next');
   var lightboxImage = document.body.querySelector('.lightbox__image');
+  var lightboxBackground = document.body.querySelector('.lightbox__background');
   var searchInput = document.body.querySelector('.search__input');
   var searchSubmitButton = document.body.querySelector('.search__button--submit');
   var input = '';
@@ -63,8 +64,11 @@ var Slider = function () {
   var renderLightbox = function renderLightbox(node, index, arr) {
     node.onclick = function () {
       var position = index;
-      // Close Button
+      // Close Lightbox
       lightboxCloseButton.onclick = function () {
+        lightbox.classList.add('hide');
+      };
+      lightboxBackground.onclick = function () {
         lightbox.classList.add('hide');
       };
       // Previous and Next Button
@@ -152,6 +156,13 @@ var Slider = function () {
   };
 
   var init = function init() {
+    window.addEventListener('keypress', function (key) {
+      // if (key.keyCode === 27) {
+      //   alert('listen');
+      // }
+      key.preventDefault();
+      console.log(key);
+    });
     initSearch();
     fetchFromFlickr('patterns');
   };
