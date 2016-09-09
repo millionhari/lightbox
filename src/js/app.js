@@ -139,7 +139,7 @@ const Slider = (() => {
       spinner.classList.add('hide');
       app.appendChild(imageContainer);
     });
-  }
+  };
 
   const clearImages = () => {
     while (imageContainer.hasChildNodes()) {
