@@ -6,6 +6,7 @@ const notify = require('gulp-notify');
 const babel = require('gulp-babel');
 const minifyCSS = require('gulp-minify-css');
 const concatCSS = require('gulp-concat-css');
+const minifyJS = require('gulp-minify');
 
 gulp.task('sass', () => {
   gulp.src('./src/scss/*.scss')
@@ -34,6 +35,9 @@ gulp.task('js', () => {
   gulp.src('./src/js/*.js')
     .pipe(babel({
       presets: ['es2015']
+    }))
+    .pipe(minifyJS({
+      min: '.js'
     }))
     .pipe(notify('js built'))
     .pipe(gulp.dest('./dist/js'));

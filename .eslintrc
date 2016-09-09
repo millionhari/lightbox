@@ -13,6 +13,7 @@
   "globals" : {
     "document": true,
     "XMLHttpRequest": true,
-    "window": true
+    "window": true,
+    "ES6Promise": true
     }
 }

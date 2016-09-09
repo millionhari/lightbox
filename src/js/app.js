@@ -1,4 +1,5 @@
 const Slider = (() => {
+  // I know this isn't best practice, and I would usually set the API key in the environment variables, but for simplicity's sake I set it as a variable here
   const apiKey = 'c68800a17a432a39511ddfe44c78a500';
   const app = document.body.querySelector('.app');
 
@@ -12,7 +13,7 @@ const Slider = (() => {
   const lightboxBackground = document.body.querySelector('.lightbox__background');
   const searchInput = document.body.querySelector('.search__input');
   const searchSubmitButton = document.body.querySelector('.search__button--submit');
-  const spinner = document.body.querySelector('.spinner');
+  const spinner = document.body.querySelector('.spinner__wrapper');
   let input = '';
   imageContainer.classList.add('image__container');
 
@@ -29,7 +30,7 @@ const Slider = (() => {
     req.send();
   });
 
-  // format data into sub-objects
+  // Format data into sub-objects
   const createImageObjects = (images) => {
     if (images.sizes.size.length > 8) {
       const small = images.sizes.size[4].source;
@@ -127,7 +128,7 @@ const Slider = (() => {
       return Promise.all(newList);
     })
     .then((urls) => {
-      // Work with urls here
+      // Image urls
       urls = urls.filter((x) => typeof x !== 'undefined');
       urls.forEach((imageSizes, index, arr) => {
         if (typeof imageSizes !== 'undefined') {
@@ -171,4 +172,5 @@ const Slider = (() => {
   };
 })();
 
+ES6Promise.polyfill();
 Slider.init();

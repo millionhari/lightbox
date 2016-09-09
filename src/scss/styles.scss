@@ -167,10 +167,11 @@
 
   .spinner {
     max-width: 50px;
-    position: absolute;
+    // position: absolute;
+    position: relative;
     text-align: center;
-    left: 0;
-    right: 0;
+    // left: 0;
+    // right: 0;
     margin: 0 auto;
     top: 25vh;
     display: block;

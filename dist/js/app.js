@@ -1,6 +1,7 @@
 'use strict';
 
 var Slider = function () {
+  // I know this isn't best practice, and I would usually set the API key in the environment variables, but for simplicity's sake I set it as a variable here
   var apiKey = 'c68800a17a432a39511ddfe44c78a500';
   var app = document.body.querySelector('.app');
 
@@ -14,7 +15,7 @@ var Slider = function () {
   var lightboxBackground = document.body.querySelector('.lightbox__background');
   var searchInput = document.body.querySelector('.search__input');
   var searchSubmitButton = document.body.querySelector('.search__button--submit');
-  var spinner = document.body.querySelector('.spinner');
+  var spinner = document.body.querySelector('.spinner__wrapper');
   var input = '';
   imageContainer.classList.add('image__container');
 
@@ -35,7 +36,7 @@ var Slider = function () {
     });
   };
 
-  // format data into sub-objects
+  // Format data into sub-objects
   var createImageObjects = function createImageObjects(images) {
     if (images.sizes.size.length > 8) {
       var small = images.sizes.size[4].source;
@@ -130,7 +131,7 @@ var Slider = function () {
       });
       return Promise.all(newList);
     }).then(function (urls) {
-      // Work with urls here
+      // Image urls
       urls = urls.filter(function (x) {
         return typeof x !== 'undefined';
       });
@@ -176,4 +177,5 @@ var Slider = function () {
   };
 }();
 
+ES6Promise.polyfill();
 Slider.init();
