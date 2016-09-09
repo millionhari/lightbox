@@ -61,15 +61,31 @@ var Slider = function () {
     }
   };
 
+  var hideLightbox = function hideLightbox() {
+    lightbox.classList.add('hide');
+    window.removeEventListener('keypress', keyControls);
+  };
+
+  var keyControls = function keyControls(key) {
+    if (key.keyCode === 27) {
+      hideLightbox();
+    } else if (key.keyCode === 37 && lightboxPrevButton.classList[2] !== 'hide') {
+      lightboxPrevButton.click();
+    } else if (key.keyCode === 39 && lightboxNextButton.classList[2] !== 'hide') {
+      lightboxNextButton.click();
+    }
+  };
+
   var renderLightbox = function renderLightbox(node, index, arr) {
     node.onclick = function () {
       var position = index;
       // Close Lightbox
+      window.addEventListener('keypress', keyControls);
       lightboxCloseButton.onclick = function () {
-        lightbox.classList.add('hide');
+        hideLightbox();
       };
       lightboxBackground.onclick = function () {
-        lightbox.classList.add('hide');
+        hideLightbox();
       };
       // Previous and Next Button
       lightboxPrevButton.onclick = function () {
@@ -90,11 +106,6 @@ var Slider = function () {
   };
 
   var renderThumbnails = function renderThumbnails(imageSizes) {
-    // const img = document.createElement('img');
-    // img.src = imageSizes.small;
-    // img.style.width = 'auto';
-    // img.style.height = '200px';
-    // img.classList.add('thumbnail__image');
     var thumbnail = document.createElement('div');
     thumbnail.style.backgroundImage = 'url(\'' + imageSizes.small + '\')';
     thumbnail.classList.add('image__thumbnail--container');
@@ -139,8 +150,9 @@ var Slider = function () {
   };
 
   var initSearch = function initSearch() {
+    // IMPLEMENT SPINNER
     if (!imageContainer.hasChildNodes()) {
-      console.log();
+      console.log('spinner');
     }
     searchInput.addEventListener('keypress', function (key) {
       if (key.keyCode === 13) {
@@ -156,13 +168,6 @@ var Slider = function () {
   };
 
   var init = function init() {
-    window.addEventListener('keypress', function (key) {
-      // if (key.keyCode === 27) {
-      //   alert('listen');
-      // }
-      key.preventDefault();
-      console.log(key);
-    });
     initSearch();
     fetchFromFlickr('patterns');
   };

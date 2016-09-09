@@ -55,15 +55,31 @@ const Slider = (() => {
     }
   };
 
+  const hideLightbox = () => {
+    lightbox.classList.add('hide');
+    window.removeEventListener('keypress', keyControls);
+  };
+
+  const keyControls = (key) => {
+    if (key.keyCode === 27) {
+      hideLightbox();
+    } else if (key.keyCode === 37 && lightboxPrevButton.classList[2] !== 'hide') {
+      lightboxPrevButton.click();
+    } else if (key.keyCode === 39 && lightboxNextButton.classList[2] !== 'hide') {
+      lightboxNextButton.click();
+    }
+  };
+
   const renderLightbox = (node, index, arr) => {
     node.onclick = () => {
       let position = index;
       // Close Lightbox
+      window.addEventListener('keypress', keyControls);
       lightboxCloseButton.onclick = () => {
-        lightbox.classList.add('hide');
+        hideLightbox();
       };
       lightboxBackground.onclick = () => {
-        lightbox.classList.add('hide');
+        hideLightbox();
       };
       // Previous and Next Button
       lightboxPrevButton.onclick = () => {
@@ -84,11 +100,6 @@ const Slider = (() => {
   };
 
   const renderThumbnails = (imageSizes) => {
-    // const img = document.createElement('img');
-    // img.src = imageSizes.small;
-    // img.style.width = 'auto';
-    // img.style.height = '200px';
-    // img.classList.add('thumbnail__image');
     const thumbnail = document.createElement('div');
     thumbnail.style.backgroundImage = `url('${imageSizes.small}')`;
     thumbnail.classList.add('image__thumbnail--container');
@@ -132,8 +143,9 @@ const Slider = (() => {
   };
 
   const initSearch = () => {
+    // IMPLEMENT SPINNER
     if (!imageContainer.hasChildNodes()) {
-      console.log()
+      console.log('spinner');
     }
     searchInput.addEventListener('keypress', (key) => {
       if (key.keyCode === 13) {
@@ -149,13 +161,6 @@ const Slider = (() => {
   };
 
   const init = () => {
-    window.addEventListener('keypress', (key) => {
-      // if (key.keyCode === 27) {
-      //   alert('listen');
-      // }
-      key.preventDefault();
-      console.log(key);
-    });
     initSearch();
     fetchFromFlickr('patterns');
   };
