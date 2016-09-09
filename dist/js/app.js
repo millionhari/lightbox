@@ -134,7 +134,6 @@ var Slider = function () {
       urls = urls.filter(function (x) {
         return typeof x !== 'undefined';
       });
-      console.log(urls);
       urls.forEach(function (imageSizes, index, arr) {
         if (typeof imageSizes !== 'undefined') {
           var thumbnails = renderThumbnails(imageSizes);
@@ -154,10 +153,6 @@ var Slider = function () {
   };
 
   var initSearch = function initSearch() {
-    // IMPLEMENT SPINNER
-    if (!imageContainer.hasChildNodes()) {
-      console.log('spinner');
-    }
     searchInput.addEventListener('keydown', function (key) {
       if (key.keyCode === 13) {
         clearImages();

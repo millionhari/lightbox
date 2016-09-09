@@ -4,7 +4,8 @@
   "description": "Coding challenge for Slack's Front End Developer Role",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "opener file:///Users/mikhari/Documents/Personal/Dev/slack-lightbox/index.html"
   },
   "repository": {
     "type": "git",
@@ -28,9 +29,7 @@
     "gulp-concat-css": "^2.3.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-notify": "^2.2.0",
-    "gulp-sass": "^2.3.2"
-  },
-  "dependencies": {
-    "superagent": "^2.2.0"
+    "gulp-sass": "^2.3.2",
+    "opener": "^1.4.1"
   }
 }

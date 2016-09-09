@@ -129,7 +129,6 @@ const Slider = (() => {
     .then((urls) => {
       // Work with urls here
       urls = urls.filter((x) => typeof x !== 'undefined');
-      console.log(urls);
       urls.forEach((imageSizes, index, arr) => {
         if (typeof imageSizes !== 'undefined') {
           const thumbnails = renderThumbnails(imageSizes);
@@ -149,10 +148,6 @@ const Slider = (() => {
   };
 
   const initSearch = () => {
-    // IMPLEMENT SPINNER
-    if (!imageContainer.hasChildNodes()) {
-      console.log('spinner');
-    }
     searchInput.addEventListener('keydown', (key) => {
       if (key.keyCode === 13) {
         clearImages();
